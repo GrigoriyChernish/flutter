@@ -1,0 +1,31 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_app/generated/l10n.dart';
+import 'Pages/Auth/AuthPage.dart';
+import 'Style/MainStyle.dart';
+
+void main() {
+  runApp(StartApp());
+}
+
+class StartApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      localeResolutionCallback:
+          (Locale locale, Iterable<Locale> supportedLocales) {
+        return locale;
+      },
+      localizationsDelegates: [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      onGenerateTitle: (BuildContext context) => S.of(context).title,
+      theme: StyleTheme.light,
+      home: AuthPage(),
+    );
+  }
+}
