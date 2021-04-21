@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_app/generated/l10n.dart';
-import 'Pages/Auth/AuthPage.dart';
-import 'Style/MainStyle.dart';
+import 'package:provider/provider.dart';
+import 'pages/Auth/AuthPage.dart';
+import 'style/MainStyle.dart';
 
 void main() {
+  Provider.debugCheckInvalidValueType = null;
+
   runApp(StartApp());
 }
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/components/textField/TextFormField.dart';
+import 'package:flutter_app/model/auth/loginFormModel.dart';
+import 'package:provider/provider.dart';
+import '../textField/textFormField.dart';
 
 class LoginForm extends StatefulWidget {
   LoginForm({Key key}) : super(key: key);
@@ -22,26 +24,22 @@ class _LoginFormState extends State<LoginForm> {
             padding: const EdgeInsets.all(15.0),
             child: Form(
               key: _formKey,
+              autovalidateMode: AutovalidateMode.disabled,
               child: Column(
                 children: [
                   FormFiledText(
+                    key: Key('emailInput'),
                     labelText: 'Електроный адрес',
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Ведите Електроный адрес';
-                      }
-                      return null;
-                    },
+                    keyboardType: TextInputType.emailAddress,
                   ),
                   FormFiledText(
+                    key: Key('passwordInput'),
                     labelText: 'Пароль',
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Ведите Пароль';
-                      }
-                      return null;
-                    },
+                    keyboardType: TextInputType.number,
                   ),
+                  /*                 Text('${context.watch<LoginFormModel>().getEmail}',
+                      key: const Key('counterState'),
+                      style: Theme.of(context).textTheme.headline4) */
                 ],
               ),
             ),
@@ -55,7 +53,9 @@ class _LoginFormState extends State<LoginForm> {
               child: Text('Заходи четам'),
               onPressed: () {
                 if (_formKey.currentState.validate()) {
-                  print(_formKey.currentState);
+                  print(context.read<LoginFormModel>().password);
+                  print(context.read<LoginFormModel>().email);
+                  // print(context.read<LoginFormModel>().status);
                 }
               },
             ),

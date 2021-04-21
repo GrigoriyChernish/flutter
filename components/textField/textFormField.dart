@@ -1,45 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import '../../Style/MainStyle.dart';
+import 'package:provider/provider.dart';
+import 'package:formz/formz.dart';
+
+import '../../model/auth/loginFormModel.dart';
+import '../../style/MainStyle.dart';
 
 class FormFiledText extends StatefulWidget {
   FormFiledText({
     Key key,
     this.labelText,
-    this.validator,
-    this.onChanged,
+    this.keyboardType,
   }) : super(key: key);
 
   final String labelText;
-  final FormFieldValidator validator;
-  final ValueChanged<String> onChanged;
+  final TextInputType keyboardType;
 
   @override
-  _FormFiledTextState createState() =>
-      _FormFiledTextState(labelText, validator, onChanged);
+  _FormFiledTextState createState() => _FormFiledTextState();
 }
 
 class _FormFiledTextState extends State<FormFiledText> {
-  String _labelText;
-  final FormFieldValidator _validator;
-  final ValueChanged<String> _onChanged;
-
-  _FormFiledTextState(this._labelText, this._validator, this._onChanged);
-
   FocusNode _focus;
   bool _focused = false;
+  LoginFormModel _loginFormModel;
+  final _changeController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    _loginFormModel = context.read<LoginFormModel>();
     _focus = FocusNode();
     _focus.addListener(_handleFocusChange);
   }
 
   @override
   void dispose() {
+    _changeController.dispose();
     _focus.dispose();
     super.dispose();
+  }
+
+  void _onChanged(val) {
+    setState(() {
+      _loginFormModel =
+          context.read<LoginFormModel>().emailForm(val, widget.key);
+    });
+
+    //print(context.read<LoginFormModel>().email);
   }
 
   void _handleFocusChange() {
@@ -52,16 +60,28 @@ class _FormFiledTextState extends State<FormFiledText> {
 
   @override
   Widget build(BuildContext context) {
+    // final LoginFormModel loginFormModel = Provider.of<LoginFormModel>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        controller: _changeController,
         focusNode: _focus,
         textAlign: TextAlign.center,
         style: buildTextStyle(),
         decoration: buildInputDecoration(),
-        onSaved: (val) => {print(val)},
-        validator: (val) => _validator(val),
-        keyboardType: TextInputType.emailAddress,
+        onChanged: (val) => _onChanged(val),
+        onSaved: (val) {},
+        validator: (val) {
+          if (_loginFormModel?.status == FormzStatus.invalid &&
+              val.isNotEmpty) {
+            return 'Please enter some text';
+          } else if (!_focused && val.isEmpty) {
+            print(_changeController.text);
+            return 'ведите чтото';
+          }
+          return null;
+        },
+        keyboardType: widget.keyboardType,
       ),
     );
   }
@@ -71,7 +91,7 @@ class _FormFiledTextState extends State<FormFiledText> {
       fontSize: 20);
 
   InputDecoration buildInputDecoration() => InputDecoration(
-      labelText: _labelText,
+      labelText: widget.labelText,
       labelStyle: TextStyle(
         color: _focused ? StyleTheme.focusColor : StyleTheme.primaryTextColor,
       ),
