@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/auth/loginForm.dart';
-import '../../model/auth/loginFormModel.dart';
+import '../../model/auth/formModel.dart';
 
 class AuthPage extends StatefulWidget {
   AuthPage({Key key}) : super(key: key);
@@ -15,7 +15,7 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     return Provider(
-      create: (_) => LoginFormModel(),
+      create: (_) => FormModel(),
       child: Listener(
         onPointerDown: (_) {
           FocusScopeNode currentFocus = FocusScope.of(context);

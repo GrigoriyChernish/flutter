@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/model/auth/loginFormModel.dart';
+import 'package:flutter_app/model/auth/formModel.dart';
 import 'package:provider/provider.dart';
 import '../textField/textFormField.dart';
 
@@ -28,18 +28,23 @@ class _LoginFormState extends State<LoginForm> {
               child: Column(
                 children: [
                   FormFiledText(
-                    key: Key('emailInput'),
+                    key: Key('email'),
                     labelText: 'Електроный адрес',
                     keyboardType: TextInputType.emailAddress,
+                    errorText: 'Електроный адрес',
                   ),
                   FormFiledText(
-                    key: Key('passwordInput'),
+                    key: Key('password'),
                     labelText: 'Пароль',
                     keyboardType: TextInputType.number,
+                    errorText: 'Пароль',
                   ),
-                  /*                 Text('${context.watch<LoginFormModel>().getEmail}',
-                      key: const Key('counterState'),
-                      style: Theme.of(context).textTheme.headline4) */
+                  FormFiledText(
+                    key: Key('confirmPassword'),
+                    labelText: 'confirmPassword',
+                    keyboardType: TextInputType.visiblePassword,
+                    errorText: 'confirmPassword',
+                  ),
                 ],
               ),
             ),
@@ -52,11 +57,9 @@ class _LoginFormState extends State<LoginForm> {
             child: ElevatedButton(
               child: Text('Заходи четам'),
               onPressed: () {
-                if (_formKey.currentState.validate()) {
-                  print(context.read<LoginFormModel>().password);
-                  print(context.read<LoginFormModel>().email);
-                  // print(context.read<LoginFormModel>().status);
-                }
+                print(context.read<FormModel>().password);
+                print(context.read<FormModel>().email);
+                // print(context.read<FormModel>().status);
               },
             ),
           ),
