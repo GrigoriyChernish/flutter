@@ -9,22 +9,25 @@ class StyleTheme {
   static const Color errorTextColor = Color(0xFFAD1457);
   static ThemeData get light {
     return ThemeData.light().copyWith(
-      textSelectionTheme: TextSelectionThemeData(
-          cursorColor: focusColor,
-          selectionColor: focusColor.withOpacity(0.4),
-          selectionHandleColor: focusColor),
-      scaffoldBackgroundColor: bgColor,
-      textTheme: ThemeData.light().textTheme.apply(
-            fontFamily: 'Montserrat',
-          ),
-      primaryColor: StyleTheme.primaryColor,
-      elevatedButtonTheme: elevatedButtonThemeData(),
-      cardTheme: CardTheme(
-        color: bgColor,
-      ),
-      iconTheme: IconThemeData(color: primaryColor),
-      inputDecorationTheme: inputDecorationTheme(),
-    );
+        textSelectionTheme: TextSelectionThemeData(
+            cursorColor: focusColor,
+            selectionColor: focusColor.withOpacity(0.4),
+            selectionHandleColor: focusColor),
+        scaffoldBackgroundColor: bgColor,
+        textTheme: ThemeData.light().textTheme.apply(
+              fontFamily: 'Montserrat',
+            ),
+        primaryColor: StyleTheme.primaryColor,
+        elevatedButtonTheme: elevatedButtonThemeData(),
+        cardTheme: CardTheme(
+          color: bgColor,
+        ),
+        iconTheme: IconThemeData(color: primaryColor),
+        inputDecorationTheme: inputDecorationTheme(),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: bgColor,
+          selectedItemColor: primaryColor,
+        ));
   }
 
   static InputDecorationTheme inputDecorationTheme() {

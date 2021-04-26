@@ -9,13 +9,17 @@ import '../../style/MainStyle.dart';
 class FormFiledText extends StatefulWidget {
   FormFiledText({
     Key key,
+    this.id,
     this.labelText,
     this.keyboardType,
     this.errorText,
+    this.obscureText = false,
   }) : super(key: key);
+  final bool obscureText;
   final String errorText;
   final String labelText;
   final TextInputType keyboardType;
+  final FormKey id;
 
   @override
   _FormFiledTextState createState() => _FormFiledTextState();
@@ -24,24 +28,25 @@ class FormFiledText extends StatefulWidget {
 class _FormFiledTextState extends State<FormFiledText> {
   FocusNode _focus;
   FocusScopeNode _btnClearFocus;
-  FormModel _formModel;
+  FormzStatus _status;
   bool _focused = false;
   bool _isError = false;
+  bool _obscureText = false;
+  bool _visibility = false;
 
   final _changeController = TextEditingController();
-
-  get _focusColor =>
-      _focused ? StyleTheme.focusColor : StyleTheme.primaryTextColor;
 
   @override
   void initState() {
     super.initState();
-    _formModel = context.read<FormModel>();
-    _formModel.key = widget.key;
     _focus = FocusNode();
     _btnClearFocus = FocusScopeNode();
     _focus.addListener(_handleFocusChange);
     _btnClearFocus.addListener(_handleBtnFocusChange);
+    if (widget.obscureText) {
+      _obscureText = true;
+      _visibility = true;
+    }
   }
 
   @override
@@ -54,7 +59,7 @@ class _FormFiledTextState extends State<FormFiledText> {
 
   void _onChanged(val) {
     setState(() {
-      _formModel = context.read<FormModel>().emailForm(val, widget.key);
+      _status = context.read<FormModel>().formValidate(val, widget.id);
     });
   }
 
@@ -65,10 +70,9 @@ class _FormFiledTextState extends State<FormFiledText> {
   }
 
   void _handleFocusChange() {
-    Future.delayed(const Duration(milliseconds: 50), () {
+    Future.delayed(const Duration(milliseconds: 100), () {
       if (_focused) {
-        if (_formModel?.status == FormzStatus.invalid &&
-            _changeController.text.isNotEmpty) {
+        if (_status.isInvalid && _changeController.text.isNotEmpty) {
           _isError = true;
         }
       } else {
@@ -84,7 +88,8 @@ class _FormFiledTextState extends State<FormFiledText> {
   }
 
   String _validator(String val) {
-    if (_formModel?.status == FormzStatus.invalid && val.isNotEmpty) {
+    if (_status.isInvalid && !_focused || val.isEmpty) {
+      _isError = true;
       return widget.errorText;
     }
     return null;
@@ -104,7 +109,7 @@ class _FormFiledTextState extends State<FormFiledText> {
         onSaved: (val) {},
         validator: _validator,
         keyboardType: widget.keyboardType,
-        obscureText: true,
+        obscureText: _visibility,
       ),
     );
   }
@@ -125,8 +130,14 @@ class _FormFiledTextState extends State<FormFiledText> {
           fontSize: 15,
           fontWeight: FontWeight.bold,
         ),
-        suffixIcon: _changeController.text.isNotEmpty ? iconClear() : null,
+        suffixIcon: _obscureText ? iconVisibility : controllerIconClear,
       );
+
+  get controllerIconClear =>
+      _changeController.text.isNotEmpty ? iconClear() : null;
+
+  get _focusColor =>
+      _focused ? StyleTheme.focusColor : StyleTheme.primaryTextColor;
 
   IconButton iconClear() {
     return IconButton(
@@ -141,4 +152,15 @@ class _FormFiledTextState extends State<FormFiledText> {
           _changeController.clear();
         });
   }
+
+  IconButton get iconVisibility => IconButton(
+        focusNode: _btnClearFocus,
+        color: _focusColor,
+        focusColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        icon: Icon(_visibility ? Icons.visibility : Icons.visibility_off),
+        onPressed: () => setState(() => _visibility = !_visibility),
+      );
 }
