@@ -1,89 +1,72 @@
+/// Flutter code sample for ScaleTransition
+
+// The following code implements the [ScaleTransition] as seen in the video
+// above:
+
 import 'package:flutter/material.dart';
 
-class MainPage extends StatefulWidget {
-  MainPage({Key key}) : super(key: key);
+/// This is the main application widget.
+class MainPage extends StatelessWidget {
+  const MainPage({Key key}) : super(key: key);
+
+  static const String _title = 'Flutter Code Sample';
 
   @override
-  _MainPageState createState() => _MainPageState();
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: _title,
+      home: MyStatefulWidget(),
+    );
+  }
 }
 
-class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 0;
-  PageController _pageController;
+/// This is the stateful widget that the main application instantiates.
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({Key key}) : super(key: key);
+
+  @override
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+}
+
+/// This is the private State class that goes with MyStatefulWidget.
+/// AnimationControllers can be created with `vsync: this` because of TickerProviderStateMixin.
+class _MyStatefulWidgetState extends State<MyStatefulWidget>
+    with TickerProviderStateMixin {
+  AnimationController _controller;
+  Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    )..repeat(reverse: true);
+
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.fastOutSlowIn,
+    );
   }
 
   @override
   void dispose() {
-    _pageController.dispose();
     super.dispose();
+    _controller.dispose();
   }
-
-  static List<Widget> _widgetForms = <Widget>[
-    Container(
-      color: Colors.blueGrey,
-    ),
-    Container(
-      color: Colors.red,
-    ),
-    Container(
-      color: Colors.amber,
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Nav Bar")),
-      body: SizedBox.expand(
-        child: PageView(
-          scrollDirection: Axis.vertical,
-          controller: _pageController,
-          onPageChanged: (index) {
-            setState(() => _selectedIndex = index);
-          },
-          children: _widgetForms,
+      body: Center(
+        child: ScaleTransition(
+          scale: _animation,
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: FlutterLogo(size: 250.0),
+          ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
-        onTap: _onItemTapped,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              title: Text('Item One'), icon: Icon(Icons.home)),
-          BottomNavigationBarItem(
-            title: Text('Item One'),
-            icon: Icon(Icons.apps),
-            backgroundColor: Colors.lightBlue,
-          ),
-          BottomNavigationBarItem(
-            title: Text('Item One'),
-            icon: Icon(Icons.chat_bubble),
-            backgroundColor: Colors.lightBlue,
-          ),
-          BottomNavigationBarItem(
-            title: Text('Item One'),
-            icon: Icon(Icons.settings),
-            backgroundColor: Colors.lightBlue,
-          ),
-        ],
-      ),
     );
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      _pageController.animateToPage(
-        index,
-        duration: Duration(milliseconds: 500),
-        curve: Curves.easeOut,
-      );
-    });
   }
 }

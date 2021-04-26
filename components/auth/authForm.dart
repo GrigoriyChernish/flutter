@@ -21,6 +21,8 @@ class AuthForm extends StatefulWidget {
 
 class _AuthFormState extends State<AuthForm> {
   final _formKey = GlobalKey<FormState>();
+  List<String> _widgetFormsText;
+  AutovalidateMode _autovalidate = AutovalidateMode.disabled;
 
   static List<Widget> _widgetForms = <Widget>[
     LoginForm(),
@@ -28,12 +30,13 @@ class _AuthFormState extends State<AuthForm> {
     ForgotForm(),
   ];
 
-  AutovalidateMode _autovalidate = AutovalidateMode.disabled;
-
-  @override
-  void initState() {
-    super.initState();
-    print("widget.child");
+  get _getBtnTextForm {
+    _widgetFormsText = <String>[
+      S.of(context).btnOk,
+      S.of(context).btnRegistre,
+      S.of(context).btnNewPassword,
+    ];
+    return _widgetFormsText.elementAt(widget.selected);
   }
 
   _verification() {
@@ -46,18 +49,13 @@ class _AuthFormState extends State<AuthForm> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> _widgetFormsText = <String>[
-      S.of(context).btnOk,
-      S.of(context).btnRegistre,
-      S.of(context).btnNewPassword,
-    ];
     return Column(
       children: [
         Container(
           width: double.infinity,
           child: Center(
               child: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Form(
               key: _formKey,
               autovalidateMode: _autovalidate,
@@ -68,12 +66,17 @@ class _AuthFormState extends State<AuthForm> {
         Container(
           width: double.infinity,
           child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: ElevatedButton(
-              child: Text(_widgetFormsText.elementAt(widget.selected)),
-              onPressed: () {
-                _verification();
-              },
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Container(
+              child: ElevatedButton(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(_getBtnTextForm),
+                ),
+                onPressed: () {
+                  _verification();
+                },
+              ),
             ),
           ),
         ),
