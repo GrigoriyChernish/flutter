@@ -21,7 +21,26 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "btnForgotPassword" : MessageLookupByLibrary.simpleMessage("Отправить"),
+    "btnNewPassword" : MessageLookupByLibrary.simpleMessage("Обновить"),
+    "btnOk" : MessageLookupByLibrary.simpleMessage("Войти"),
+    "btnRegistre" : MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
+    "confirmPassword" : MessageLookupByLibrary.simpleMessage("Подтвердить пароль"),
+    "email" : MessageLookupByLibrary.simpleMessage("Электронная почта"),
+    "errorInputConfirmPassword" : MessageLookupByLibrary.simpleMessage("Проверьте свой пароль"),
+    "errorInputEmail" : MessageLookupByLibrary.simpleMessage("Проверить адрес электронной почты"),
+    "errorInputName" : MessageLookupByLibrary.simpleMessage("Используйте не менее 3 символов"),
+    "errorInputPassword" : MessageLookupByLibrary.simpleMessage("Используйте не менее 4 символов"),
+    "forgotPassword" : MessageLookupByLibrary.simpleMessage("Забыли пароль?"),
+    "forgotPasswordTitle" : MessageLookupByLibrary.simpleMessage("Восстановить пароль"),
+    "loginTitle" : MessageLookupByLibrary.simpleMessage("Логин"),
+    "logout" : MessageLookupByLibrary.simpleMessage("Выход"),
+    "name" : MessageLookupByLibrary.simpleMessage("Имя пользователя"),
+    "newPasswordTitle" : MessageLookupByLibrary.simpleMessage("Новый пароль"),
+    "password" : MessageLookupByLibrary.simpleMessage("Пароль"),
+    "registerTitle" : MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
+    "remember" : MessageLookupByLibrary.simpleMessage("Запомнить"),
     "subtitle" : MessageLookupByLibrary.simpleMessage("Добро пожаловать"),
-    "title" : MessageLookupByLibrary.simpleMessage("Привет мир")
+    "title" : MessageLookupByLibrary.simpleMessage("Привет и пока")
   };
 }

@@ -35,10 +35,10 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Привет мир`
+  /// `Привет и пока`
   String get title {
     return Intl.message(
-      'Привет мир',
+      'Привет и пока',
       name: 'title',
       desc: '',
       args: [],
@@ -50,6 +50,196 @@ class S {
     return Intl.message(
       'Добро пожаловать',
       name: 'subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Зарегистрироваться`
+  String get registerTitle {
+    return Intl.message(
+      'Зарегистрироваться',
+      name: 'registerTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Логин`
+  String get loginTitle {
+    return Intl.message(
+      'Логин',
+      name: 'loginTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Электронная почта`
+  String get email {
+    return Intl.message(
+      'Электронная почта',
+      name: 'email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Пароль`
+  String get password {
+    return Intl.message(
+      'Пароль',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Подтвердить пароль`
+  String get confirmPassword {
+    return Intl.message(
+      'Подтвердить пароль',
+      name: 'confirmPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Имя пользователя`
+  String get name {
+    return Intl.message(
+      'Имя пользователя',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Запомнить`
+  String get remember {
+    return Intl.message(
+      'Запомнить',
+      name: 'remember',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Войти`
+  String get btnOk {
+    return Intl.message(
+      'Войти',
+      name: 'btnOk',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Отправить`
+  String get btnForgotPassword {
+    return Intl.message(
+      'Отправить',
+      name: 'btnForgotPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Зарегистрироваться`
+  String get btnRegistre {
+    return Intl.message(
+      'Зарегистрироваться',
+      name: 'btnRegistre',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Выход`
+  String get logout {
+    return Intl.message(
+      'Выход',
+      name: 'logout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Забыли пароль?`
+  String get forgotPassword {
+    return Intl.message(
+      'Забыли пароль?',
+      name: 'forgotPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Восстановить пароль`
+  String get forgotPasswordTitle {
+    return Intl.message(
+      'Восстановить пароль',
+      name: 'forgotPasswordTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Новый пароль`
+  String get newPasswordTitle {
+    return Intl.message(
+      'Новый пароль',
+      name: 'newPasswordTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Обновить`
+  String get btnNewPassword {
+    return Intl.message(
+      'Обновить',
+      name: 'btnNewPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Используйте не менее 3 символов`
+  String get errorInputName {
+    return Intl.message(
+      'Используйте не менее 3 символов',
+      name: 'errorInputName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Проверить адрес электронной почты`
+  String get errorInputEmail {
+    return Intl.message(
+      'Проверить адрес электронной почты',
+      name: 'errorInputEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Используйте не менее 4 символов`
+  String get errorInputPassword {
+    return Intl.message(
+      'Используйте не менее 4 символов',
+      name: 'errorInputPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Проверьте свой пароль`
+  String get errorInputConfirmPassword {
+    return Intl.message(
+      'Проверьте свой пароль',
+      name: 'errorInputConfirmPassword',
       desc: '',
       args: [],
     );

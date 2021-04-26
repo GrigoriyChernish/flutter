@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/components/textField/textFormField.dart';
 import 'package:flutter_app/model/auth/formModel.dart';
+import 'package:flutter_app/generated/l10n.dart';
 
 class EmailWidget extends StatelessWidget {
   const EmailWidget({
@@ -11,9 +12,9 @@ class EmailWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return FormFiledText(
       id: FormKey.email,
-      labelText: 'Електроный адрес',
+      labelText: S.of(context).email,
       keyboardType: TextInputType.emailAddress,
-      errorText: 'Електроный адрес',
+      errorText: S.of(context).errorInputEmail,
     );
   }
 }

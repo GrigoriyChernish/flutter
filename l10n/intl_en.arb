@@ -1,3 +1,25 @@
 {
-  "title": "Hello world"
+  "title": "Hello world",
+  "subtitle": "Добро пожаловать",
+  
+    "registerTitle": "Зарегистрироваться",
+    "loginTitle": "Логин",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердить пароль",
+    "name": "Имя пользователя",
+    "remember": "Запомнить",
+    "btnOk": "Войти",
+    "btnForgotPassword": "Отправить",
+    "btnRegistre": "Зарегистрироваться",
+    "logout": "Выход",
+    "forgotPassword": "Забыли пароль?",
+    "forgotPasswordTitle": "Восстановить пароль",
+    "newPasswordTitle": "Новый пароль",
+    "btnNewPassword": "Обновить",
+    "errorInputName": "Используйте не менее 3 символов",
+    "errorInputEmail": "Проверить адрес электронной почты",
+    "errorInputPassword": "Используйте не менее 4 символов",
+    "errorInputConfirmPassword": "Проверьте свой пароль"
+  
 }

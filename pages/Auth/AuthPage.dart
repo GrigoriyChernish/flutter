@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/components/auth/forgotForm.dart';
-import 'package:flutter_app/components/auth/loginForm.dart';
-import 'package:flutter_app/components/auth/registrationForm.dart';
+
 import 'package:provider/provider.dart';
 
 import '../../components/auth/authForm.dart';
 import '../../model/auth/formModel.dart';
+
+import 'package:flutter_app/generated/l10n.dart';
 
 class AuthPage extends StatefulWidget {
   AuthPage({Key key}) : super(key: key);
@@ -15,27 +15,7 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  PageController _pageController;
-
   int _selected = 0;
-
-  static List<Widget> _widgetForms = <Widget>[
-    LoginForm(),
-    RegistrationForm(),
-    ForgotForm(),
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController();
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -45,6 +25,7 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
+    //  static String title = S.of(context).title;
     return Provider(
       create: (_) => FormModel(),
       child: Listener(
@@ -61,24 +42,24 @@ class _AuthPageState extends State<AuthPage> {
               child: Container(
                 width: 600,
                 child: AuthForm(
-                  child: _widgetForms.elementAt(_selected),
+                  selected: _selected,
                 ),
               ),
             ),
           ),
           bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
+            items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.login),
-                label: 'Login',
+                label: S.of(context).loginTitle,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person_add),
-                label: 'Registration',
+                label: S.of(context).registerTitle,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.email),
-                label: 'Forgot',
+                label: S.of(context).forgotPasswordTitle,
               ),
             ],
             currentIndex: _selected,

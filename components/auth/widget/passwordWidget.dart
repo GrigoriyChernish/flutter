@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/generated/l10n.dart';
 import 'package:flutter_app/components/textField/textFormField.dart';
 import 'package:flutter_app/model/auth/formModel.dart';
 
@@ -11,10 +12,10 @@ class PasswordWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return FormFiledText(
       id: FormKey.password,
-      labelText: 'Пароль',
+      labelText: S.of(context).password,
       keyboardType: TextInputType.visiblePassword,
       obscureText: true,
-      errorText: 'Пароль',
+      errorText: S.of(context).errorInputPassword,
     );
   }
 }
