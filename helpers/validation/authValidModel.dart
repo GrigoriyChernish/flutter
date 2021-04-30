@@ -12,7 +12,7 @@ class Email extends FormzInput<String, Validation> {
   );
 
   @override
-  Validation validator(String value) {
+  Validation? validator(String value) {
     return _emailRegExp.hasMatch(value) ? null : Validation.invalid;
   }
 }
@@ -29,7 +29,7 @@ class Password extends FormzInput<String, Validation> {
       RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$');
 
   @override
-  Validation validator(String value) {
+  Validation? validator(String value) {
     return value.length >= 6 ? null : Validation.invalid;
   }
 }
@@ -42,7 +42,7 @@ class Name extends FormzInput<String, Validation> {
   static _name(String name) => name.length >= 3 ? true : false;
 
   @override
-  Validation validator(String value) {
+  Validation? validator(String value) {
     return _name(value) ? null : Validation.invalid;
   }
 }

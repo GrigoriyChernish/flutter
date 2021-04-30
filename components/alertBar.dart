@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/style/MainStyle.dart';
 
 class Alert extends StatelessWidget {
-  final String _text;
+  final String? _text;
   final Color color;
 
   Alert._(this._text, this.color);
@@ -13,7 +13,7 @@ class Alert extends StatelessWidget {
 
   show(BuildContext context) {
     return ScaffoldMessenger.of(context)
-        .showSnackBar(Alert._(this._text, this.color).build(context));
+        .showSnackBar(Alert._(this._text, this.color).build(context) as SnackBar);
   }
 
   @override
@@ -25,7 +25,7 @@ class Alert extends StatelessWidget {
         children: <Widget>[
           Container(
               width: MediaQuery.of(context).size.width - 100,
-              child: Text(_text, overflow: TextOverflow.ellipsis)),
+              child: Text(_text!, overflow: TextOverflow.ellipsis)),
           IconButton(
             splashRadius: 20,
             visualDensity: VisualDensity(horizontal: -4.0, vertical: -4.0),

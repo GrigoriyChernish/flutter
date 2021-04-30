@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 /// This is the main application widget.
 class MainPage extends StatelessWidget {
-  const MainPage({Key key}) : super(key: key);
+  const MainPage({Key? key}) : super(key: key);
 
   static const String _title = 'Flutter Code Sample';
 
@@ -22,7 +22,7 @@ class MainPage extends StatelessWidget {
 
 /// This is the stateful widget that the main application instantiates.
 class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key key}) : super(key: key);
+  const MyStatefulWidget({Key? key}) : super(key: key);
 
   @override
   _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
@@ -32,8 +32,8 @@ class MyStatefulWidget extends StatefulWidget {
 /// AnimationControllers can be created with `vsync: this` because of TickerProviderStateMixin.
 class _MyStatefulWidgetState extends State<MyStatefulWidget>
     with TickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> _animation;
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
   @override
   void initState() {

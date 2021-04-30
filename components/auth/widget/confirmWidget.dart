@@ -6,16 +6,16 @@ import 'package:flutter_app/model/auth/formModel.dart';
 
 class ConfirmWidget extends StatelessWidget {
   const ConfirmWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FormFiledText(
       id: FormKey.confirm,
-      labelText: S.of(context).confirmPassword,
+      labelText: S.of(context)!.confirmPassword,
       keyboardType: TextInputType.visiblePassword,
-      errorText: S.of(context).errorInputConfirmPassword,
+      errorText: S.of(context)!.errorInputConfirmPassword,
       obscureText: true,
     );
   }

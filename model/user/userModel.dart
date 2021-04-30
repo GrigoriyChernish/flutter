@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class UserModel with ChangeNotifier {
-  final int id;
-  final String name;
-  final String email;
-  final String avatar;
-  final String verified;
-  final String provider;
-  final String providerId;
+  final int? id;
+  final String? name;
+  final String? email;
+  final String? avatar;
+  final String? verified;
+  final String? provider;
+  final String? providerId;
 
   UserModel(
       {this.id,

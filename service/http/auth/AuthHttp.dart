@@ -6,7 +6,7 @@ import '../model/Response.dart';
 enum AuthenticationStatus { unknown, authenticated, unauthenticated }
 
 class AuthHttp {
-  static Map<String, String> header;
+  static late Map<String, String> header;
 
   AuthHttp.headers(Map<String, String> headers) {
     AuthHttp.header = headers;

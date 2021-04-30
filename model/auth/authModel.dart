@@ -14,7 +14,7 @@ class Authentication with ChangeNotifier {
     notifyListeners();
   }
 
-  Authentication copyWith({AuthStatus status}) {
+  Authentication copyWith({AuthStatus? status}) {
     this.status = status ?? AuthStatus.unknown;
     return Authentication(status: status ?? AuthStatus.unknown);
   }

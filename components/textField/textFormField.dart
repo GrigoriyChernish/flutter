@@ -8,7 +8,7 @@ import '../../style/MainStyle.dart';
 
 class FormFiledText extends StatefulWidget {
   FormFiledText({
-    Key key,
+    Key? key,
     this.id,
     this.labelText,
     this.keyboardType,
@@ -16,19 +16,19 @@ class FormFiledText extends StatefulWidget {
     this.obscureText = false,
   }) : super(key: key);
   final bool obscureText;
-  final String errorText;
-  final String labelText;
-  final TextInputType keyboardType;
-  final FormKey id;
+  final String? errorText;
+  final String? labelText;
+  final TextInputType? keyboardType;
+  final FormKey? id;
 
   @override
   _FormFiledTextState createState() => _FormFiledTextState();
 }
 
 class _FormFiledTextState extends State<FormFiledText> {
-  FocusNode _focus;
-  FocusScopeNode _btnClearFocus;
-  FormzStatus _status;
+  FocusNode? _focus;
+  FocusScopeNode? _btnClearFocus;
+  late FormzStatus _status;
   bool _focused = false;
   bool _isError = false;
   bool _obscureText = false;
@@ -41,8 +41,8 @@ class _FormFiledTextState extends State<FormFiledText> {
     super.initState();
     _focus = FocusNode();
     _btnClearFocus = FocusScopeNode();
-    _focus.addListener(_handleFocusChange);
-    _btnClearFocus.addListener(_handleBtnFocusChange);
+    _focus!.addListener(_handleFocusChange);
+    _btnClearFocus!.addListener(_handleBtnFocusChange);
     if (widget.obscureText) {
       _obscureText = true;
       _visibility = true;
@@ -52,8 +52,8 @@ class _FormFiledTextState extends State<FormFiledText> {
   @override
   void dispose() {
     _changeController.dispose();
-    _focus.dispose();
-    _btnClearFocus.dispose();
+    _focus!.dispose();
+    _btnClearFocus!.dispose();
     super.dispose();
   }
 
@@ -64,8 +64,8 @@ class _FormFiledTextState extends State<FormFiledText> {
   }
 
   void _handleBtnFocusChange() {
-    if (_btnClearFocus.hasFocus) {
-      _focus.nextFocus();
+    if (_btnClearFocus!.hasFocus) {
+      _focus!.nextFocus();
     }
   }
 
@@ -79,16 +79,16 @@ class _FormFiledTextState extends State<FormFiledText> {
         _isError = false;
       }
 
-      if (_focus.hasFocus != _focused) {
+      if (_focus!.hasFocus != _focused) {
         setState(() {
-          _focused = _focus.hasFocus;
+          _focused = _focus!.hasFocus;
         });
       }
     });
   }
 
-  String _validator(String val) {
-    if (_status.isInvalid && !_focused || val.isEmpty) {
+  String? _validator(String? val) {
+    if (_status.isInvalid && !_focused || val!.isEmpty) {
       _isError = true;
       return widget.errorText;
     }

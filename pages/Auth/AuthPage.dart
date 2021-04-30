@@ -8,7 +8,7 @@ import '../../model/auth/formModel.dart';
 import 'package:flutter_app/generated/l10n.dart';
 
 class AuthPage extends StatefulWidget {
-  AuthPage({Key key}) : super(key: key);
+  AuthPage({Key? key}) : super(key: key);
 
   @override
   _AuthPageState createState() => _AuthPageState();
@@ -16,8 +16,8 @@ class AuthPage extends StatefulWidget {
 
 class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
   static const Duration _duration = Duration(milliseconds: 400);
-  AnimationController _controller;
-  Animation<double> _animation;
+  late AnimationController _controller;
+  late Animation<double> _animation;
   int _selected = 0;
 
   @override
@@ -81,15 +81,15 @@ class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.login),
-                label: S.of(context).loginTitle,
+                label: S.of(context)!.loginTitle,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person_add),
-                label: S.of(context).registerTitle,
+                label: S.of(context)!.registerTitle,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.email),
-                label: S.of(context).forgotPasswordTitle,
+                label: S.of(context)!.forgotPasswordTitle,
               ),
             ],
             currentIndex: _selected,

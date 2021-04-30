@@ -18,7 +18,7 @@ class StartApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       localeResolutionCallback:
-          (Locale locale, Iterable<Locale> supportedLocales) {
+          (Locale? locale, Iterable<Locale> supportedLocales) {
         return locale;
       },
       localizationsDelegates: [
@@ -28,7 +28,7 @@ class StartApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      onGenerateTitle: (BuildContext context) => S.of(context).title,
+      onGenerateTitle: (BuildContext context) => S.of(context)!.title,
       theme: StyleTheme.light,
       home: Provider(create: (_) => Authentication(), child: AuthPage()),
     );

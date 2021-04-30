@@ -12,9 +12,9 @@ import 'loginForm.dart';
 import 'registrationForm.dart';
 
 class AuthForm extends StatefulWidget {
-  AuthForm({Key key, this.selected}) : super(key: key);
+  AuthForm({Key? key, this.selected}) : super(key: key);
 
-  final int selected;
+  final int? selected;
 
   @override
   _AuthFormState createState() => _AuthFormState();
@@ -22,7 +22,7 @@ class AuthForm extends StatefulWidget {
 
 class _AuthFormState extends State<AuthForm> {
   final _formKey = GlobalKey<FormState>();
-  List<String> _widgetFormsText;
+  late List<String> _widgetFormsText;
   AutovalidateMode _autovalidate = AutovalidateMode.disabled;
 
   static List<Widget> _widgetForms = <Widget>[
@@ -33,14 +33,14 @@ class _AuthFormState extends State<AuthForm> {
 
   get _getBtnTextForm {
     _widgetFormsText = <String>[
-      S.of(context).btnOk,
-      S.of(context).btnRegistre,
-      S.of(context).btnNewPassword,
+      S.of(context)!.btnOk,
+      S.of(context)!.btnRegistre,
+      S.of(context)!.btnNewPassword,
     ];
-    return _widgetFormsText.elementAt(widget.selected);
+    return _widgetFormsText.elementAt(widget.selected!);
   }
 
-  get _getKey => _widgetForms.elementAt(widget.selected).key;
+  get _getKey => _widgetForms.elementAt(widget.selected!).key;
 
   @override
   void initState() {
@@ -49,13 +49,13 @@ class _AuthFormState extends State<AuthForm> {
   }
 
   _getHttp() async {
-    Response response;
+    late Response response;
     FormModel data = context.read<FormModel>();
 
     if (_getKey == ValueKey('LoginForm')) {
       response = await AuthHttp.logIn(data.login());
       if (response.status == 200) {
-        UserModel user = UserModel.fromJson(response.data);
+        UserModel user = UserModel.fromJson(response.data as Map<String, dynamic>);
         print(response.data);
         print(user.email);
 
@@ -66,7 +66,7 @@ class _AuthFormState extends State<AuthForm> {
     if (_getKey == ValueKey('RegistrationForm')) {
       response = await AuthHttp.register(data.register());
       if (response.status == 200) {
-        UserModel.fromJson(response.data);
+        UserModel.fromJson(response.data as Map<String, dynamic>);
         Authentication().set(AuthStatus.authenticated);
       }
     }
@@ -85,7 +85,7 @@ class _AuthFormState extends State<AuthForm> {
   }
 
   _verification() {
-    if (_formKey.currentState.validate()) {
+    if (_formKey.currentState!.validate()) {
       _getHttp();
     } else {
       _autovalidate = AutovalidateMode.onUserInteraction;
@@ -104,7 +104,7 @@ class _AuthFormState extends State<AuthForm> {
             child: Form(
               key: _formKey,
               autovalidateMode: _autovalidate,
-              child: _widgetForms.elementAt(widget.selected),
+              child: _widgetForms.elementAt(widget.selected!),
             ),
           )),
         ),

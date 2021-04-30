@@ -6,8 +6,8 @@ import '../../helpers/validation/authValidModel.dart';
 enum FormKey { email, password, confirm, name }
 
 class FormModel with ChangeNotifier {
-  FormKey key;
-  FormzStatus status;
+  FormKey? key;
+  late FormzStatus status;
   Name name;
   Email email;
   Password password;
@@ -49,36 +49,30 @@ class FormModel with ChangeNotifier {
     }
   }
 
-  formValidate(String data, FormKey key) {
-    switch (key) {
+  formValidate(String data, FormKey? key) {
+    switch (key!) {
       case FormKey.email:
         return _email(data);
-        break;
       case FormKey.name:
         return _name(data);
-        break;
       case FormKey.password:
         return _password(data);
-        break;
       case FormKey.confirm:
         return _confirm(data);
-        break;
     }
-
-    notifyListeners();
   }
 
   validate(List valid) {
-    return Formz.validate([...valid]);
+    return Formz.validate([...valid as Iterable<FormzInput<dynamic, dynamic>>]);
   }
 
   FormModel copyWith({
-    Name name,
-    Email email,
-    FormzStatus status,
-    Password password,
-    Password confirm,
-    FormKey key,
+    Name? name,
+    Email? email,
+    FormzStatus? status,
+    Password? password,
+    Password? confirm,
+    FormKey? key,
   }) {
     this.key = key ?? this.key;
     this.name = name ?? this.name;
