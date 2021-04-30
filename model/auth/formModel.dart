@@ -15,7 +15,6 @@ class FormModel with ChangeNotifier {
 
   FormModel({
     this.key,
-    //this.status = FormzStatus.invalid,
     this.name = const Name.pure(),
     this.email = const Email.pure(),
     this.password = const Password.pure(),
@@ -86,12 +85,9 @@ class FormModel with ChangeNotifier {
     this.email = email ?? this.email;
     this.password = password ?? this.password;
     this.confirm = confirm ?? this.confirm;
-    //this.status =
-    //   Formz.validate([this.email, this.name, this.password, this.confirm]);
 
     return FormModel(
       key: key ?? this.key,
-      //status: status ?? this.status,
       password: password ?? this.password,
       email: email ?? this.email,
       name: name ?? this.name,
@@ -101,11 +97,17 @@ class FormModel with ChangeNotifier {
 
   bool get isValid => status.isValid;
 
-  List<Object> get all => [email.value, password.value, name.value];
-
-  Map<String, dynamic> toJson() => {
+  Map<String, String> register() => {
         'email': email.value,
         'password': password.value,
         'name': name.value,
+      };
+  Map<String, String> login() => {
+        'email': email.value,
+        'password': password.value,
+      };
+
+  Map<String, String> confirmPassword() => {
+        'email': email.value,
       };
 }

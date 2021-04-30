@@ -27,7 +27,7 @@ class Password extends FormzInput<String, Validation> {
 
   @override
   Validation validator(String value) {
-    return _passwordRegExp.hasMatch(value) ? null : Validation.invalid;
+    return value.length >= 6 ? null : Validation.invalid;
   }
 }
 

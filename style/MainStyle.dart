@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 class StyleTheme {
   static const Color primaryColor = Colors.teal;
+  static const Color infoColor = Colors.blue;
+  static const Color successColor = Colors.green;
   static const Color bgColor = Color(0xFF80CBC4);
   static const Color primaryTextColor = Colors.black26;
   static const Color focusColor = Colors.white;

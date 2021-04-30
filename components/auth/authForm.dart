@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/components/auth/forgotForm.dart';
-import 'package:flutter_app/components/auth/loginForm.dart';
-import 'package:flutter_app/components/auth/registrationForm.dart';
-import 'package:flutter_app/generated/l10n.dart';
+import 'package:flutter_app/model/auth/authModel.dart';
+import 'package:flutter_app/model/user/userModel.dart';
 import 'package:provider/provider.dart';
-
+import '../../service/http/auth/AuthHttp.dart';
+import '../../service/http/model/Response.dart';
+import '../../generated/l10n.dart';
 import '../../model/auth/formModel.dart';
+import '../alertBar.dart';
+import 'forgotForm.dart';
+import 'loginForm.dart';
+import 'registrationForm.dart';
 
 class AuthForm extends StatefulWidget {
-  AuthForm({Key key, this.child, this.btnText, this.selected})
-      : super(key: key);
+  AuthForm({Key key, this.selected}) : super(key: key);
 
-  final Widget child;
-  final String btnText;
   final int selected;
 
   @override
@@ -25,9 +26,9 @@ class _AuthFormState extends State<AuthForm> {
   AutovalidateMode _autovalidate = AutovalidateMode.disabled;
 
   static List<Widget> _widgetForms = <Widget>[
-    LoginForm(),
-    RegistrationForm(),
-    ForgotForm(),
+    LoginForm(key: ValueKey('LoginForm')),
+    RegistrationForm(key: ValueKey('RegistrationForm')),
+    ForgotForm(key: ValueKey('ForgotForm')),
   ];
 
   get _getBtnTextForm {
@@ -39,9 +40,53 @@ class _AuthFormState extends State<AuthForm> {
     return _widgetFormsText.elementAt(widget.selected);
   }
 
+  get _getKey => _widgetForms.elementAt(widget.selected).key;
+
+  @override
+  void initState() {
+    super.initState();
+    AuthHttp.headers({'X-Requested': 'fdsfasf'});
+  }
+
+  _getHttp() async {
+    Response response;
+    FormModel data = context.read<FormModel>();
+
+    if (_getKey == ValueKey('LoginForm')) {
+      response = await AuthHttp.logIn(data.login());
+      if (response.status == 200) {
+        UserModel user = UserModel.fromJson(response.data);
+        print(response.data);
+        print(user.email);
+
+        context.read<Authentication>().set(AuthStatus.authenticated);
+      }
+    }
+
+    if (_getKey == ValueKey('RegistrationForm')) {
+      response = await AuthHttp.register(data.register());
+      if (response.status == 200) {
+        UserModel.fromJson(response.data);
+        Authentication().set(AuthStatus.authenticated);
+      }
+    }
+
+    if (_getKey == ValueKey('ForgotForm')) {
+      response = await AuthHttp.forgot(data.confirmPassword());
+    }
+
+    if (response.status == 200) {
+      Alert.success(response.message).show(context);
+    } else {
+      Alert.error(response.message).show(context);
+    }
+
+    print(UserModel().name);
+  }
+
   _verification() {
     if (_formKey.currentState.validate()) {
-      print(context.read<FormModel>().toJson());
+      _getHttp();
     } else {
       _autovalidate = AutovalidateMode.onUserInteraction;
     }
@@ -55,7 +100,7 @@ class _AuthFormState extends State<AuthForm> {
           width: double.infinity,
           child: Center(
               child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+            padding: EdgeInsets.symmetric(horizontal: 15),
             child: Form(
               key: _formKey,
               autovalidateMode: _autovalidate,
@@ -66,7 +111,7 @@ class _AuthFormState extends State<AuthForm> {
         Container(
           width: double.infinity,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+            padding: EdgeInsets.symmetric(horizontal: 15),
             child: Container(
               child: ElevatedButton(
                 child: Padding(
