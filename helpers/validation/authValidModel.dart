@@ -22,6 +22,9 @@ class Password extends FormzInput<String, Validation> {
 
   const Password.dirty([String value = '']) : super.dirty(value);
 
+  // ignore: todo
+  // TODO ignore: unused_field
+  // ignore: unused_field
   static final _passwordRegExp =
       RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$');
 

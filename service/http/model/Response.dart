@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:js';
-
 class Response {
   final Map data;
   final int status;
