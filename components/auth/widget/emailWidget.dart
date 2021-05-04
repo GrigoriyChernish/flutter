@@ -12,9 +12,9 @@ class EmailWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return FormFiledText(
       id: FormKey.email,
-      labelText: S.of(context)!.email,
+      labelText: S.of(context).email,
       keyboardType: TextInputType.emailAddress,
-      errorText: S.of(context)!.errorInputEmail,
+      errorText: S.of(context).errorInputEmail,
     );
   }
 }

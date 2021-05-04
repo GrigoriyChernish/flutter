@@ -12,9 +12,9 @@ class NameWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return FormFiledText(
       id: FormKey.name,
-      labelText: S.of(context)!.name,
+      labelText: S.of(context).name,
       keyboardType: TextInputType.text,
-      errorText: S.of(context)!.errorInputName,
+      errorText: S.of(context).errorInputName,
     );
   }
 }

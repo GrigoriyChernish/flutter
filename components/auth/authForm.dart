@@ -3,7 +3,7 @@ import 'package:flutter_app/model/auth/authModel.dart';
 import 'package:flutter_app/model/user/userModel.dart';
 import 'package:provider/provider.dart';
 import '../../service/http/auth/AuthHttp.dart';
-import '../../service/http/model/Response.dart';
+import '../../service/http/fetch/Response.dart';
 import '../../generated/l10n.dart';
 import '../../model/auth/formModel.dart';
 import '../alertBar.dart';
@@ -33,9 +33,9 @@ class _AuthFormState extends State<AuthForm> {
 
   get _getBtnTextForm {
     _widgetFormsText = <String>[
-      S.of(context)!.btnOk,
-      S.of(context)!.btnRegistre,
-      S.of(context)!.btnNewPassword,
+      S.of(context).btnOk,
+      S.of(context).btnRegistre,
+      S.of(context).btnNewPassword,
     ];
     return _widgetFormsText.elementAt(widget.selected!);
   }
@@ -55,10 +55,7 @@ class _AuthFormState extends State<AuthForm> {
     if (_getKey == ValueKey('LoginForm')) {
       response = await AuthHttp.logIn(data.login());
       if (response.status == 200) {
-        UserModel user = UserModel.fromJson(response.data as Map<String, dynamic>);
-        print(response.data);
-        print(user.email);
-
+        //  UserModel user = UserModel.fromJson(response.data as Map<String, dynamic>);
         context.read<Authentication>().set(AuthStatus.authenticated);
       }
     }
@@ -80,8 +77,6 @@ class _AuthFormState extends State<AuthForm> {
     } else {
       Alert.error(response.message).show(context);
     }
-
-    print(UserModel().name);
   }
 
   _verification() {

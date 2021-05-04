@@ -13,9 +13,9 @@ class ConfirmWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return FormFiledText(
       id: FormKey.confirm,
-      labelText: S.of(context)!.confirmPassword,
+      labelText: S.of(context).confirmPassword,
       keyboardType: TextInputType.visiblePassword,
-      errorText: S.of(context)!.errorInputConfirmPassword,
+      errorText: S.of(context).errorInputConfirmPassword,
       obscureText: true,
     );
   }

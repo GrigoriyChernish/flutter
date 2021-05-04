@@ -1,8 +1,7 @@
 import 'dart:convert';
-
-import 'package:flutter_app/config/url.dart';
-import 'package:flutter_app/service/http/model/Response.dart';
 import 'package:http/http.dart' as http;
+import '../../../config/url.dart';
+import 'Response.dart';
 
 class Fetch {
   Map<String, String> headers = {'X-Requested-With': 'XMLHttpRequest'};
@@ -16,8 +15,7 @@ class Fetch {
 
   Future<Response> post(String url, Map<String, dynamic> body) async {
     try {
-      http.Response response =
-          await http.post(UrlApi(url).uri, headers: this.headers, body: body);
+      http.Response response = await http.post(UrlApi(url).uri, headers: this.headers, body: body);
       return Response.fromJson(jsonDecode(response.body));
     } catch (e) {
       print(e);
@@ -27,8 +25,7 @@ class Fetch {
 
   Future<Response> get(String url) async {
     try {
-      http.Response response =
-          await http.get(UrlApi(url).uri, headers: this.headers);
+      http.Response response = await http.get(UrlApi(url).uri, headers: this.headers);
       return Response.fromJson(jsonDecode(response.body));
     } catch (e) {
       print(e);

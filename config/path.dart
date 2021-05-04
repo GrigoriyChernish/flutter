@@ -1,4 +1,4 @@
-class PathApi {
+abstract class PathApi {
   static String base = 'localhost:8000';
   static String api = 'api';
   static String login = '/login';

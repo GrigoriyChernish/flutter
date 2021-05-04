@@ -1,9 +1,6 @@
-import 'package:flutter_app/config/path.dart';
-
+import '../../../config/path.dart';
 import '../fetch/fetchHttp.dart';
-import '../model/Response.dart';
-
-enum AuthenticationStatus { unknown, authenticated, unauthenticated }
+import '../fetch/Response.dart';
 
 class AuthHttp {
   static late Map<String, String> header;

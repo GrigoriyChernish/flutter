@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'pages/MainPage.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_app/generated/l10n.dart';
+import 'generated/l10n.dart';
 import 'package:provider/provider.dart';
 import 'model/auth/authModel.dart';
 import 'pages/Auth/AuthPage.dart';
@@ -9,16 +10,34 @@ import 'style/MainStyle.dart';
 
 void main() {
   Provider.debugCheckInvalidValueType = null;
-
-  runApp(StartApp());
+  runApp(App());
 }
 
-class StartApp extends StatelessWidget {
+class App extends StatelessWidget {
+  const App({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(create: (_) => Authentication(), child: StartApp());
+  }
+}
+
+class StartApp extends StatefulWidget {
+  @override
+  _StartAppState createState() => _StartAppState();
+}
+
+class _StartAppState extends State<StartApp> {
+  //final _navigatorKey = GlobalKey<NavigatorState>();
+
+  // NavigatorState get _navigator => _navigatorKey.currentState!;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localeResolutionCallback:
-          (Locale? locale, Iterable<Locale> supportedLocales) {
+      localeResolutionCallback: (Locale? locale, Iterable<Locale> supportedLocales) {
         return locale;
       },
       localizationsDelegates: [
@@ -28,9 +47,18 @@ class StartApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      onGenerateTitle: (BuildContext context) => S.of(context)!.title,
+      onGenerateTitle: (BuildContext context) => S.of(context).title,
       theme: StyleTheme.light,
-      home: Provider(create: (_) => Authentication(), child: AuthPage()),
+      home: Consumer<Authentication>(
+        builder: (_, auth, __) {
+          print('main.dart logged in: ${auth.status}');
+          if (auth.status == AuthStatus.authenticated) {
+            return MainPage();
+          }
+          return AuthPage();
+        },
+      ),
+      //home: AuthPage(),
     );
   }
 }

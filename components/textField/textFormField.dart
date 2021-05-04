@@ -28,7 +28,7 @@ class FormFiledText extends StatefulWidget {
 class _FormFiledTextState extends State<FormFiledText> {
   FocusNode? _focus;
   FocusScopeNode? _btnClearFocus;
-  late FormzStatus _status;
+  late FormzStatus _status = FormzStatus.invalid;
   bool _focused = false;
   bool _isError = false;
   bool _obscureText = false;
@@ -133,11 +133,9 @@ class _FormFiledTextState extends State<FormFiledText> {
         suffixIcon: _obscureText ? iconVisibility : controllerIconClear,
       );
 
-  get controllerIconClear =>
-      _changeController.text.isNotEmpty ? iconClear() : null;
+  get controllerIconClear => _changeController.text.isNotEmpty ? iconClear() : null;
 
-  get _focusColor =>
-      _focused ? StyleTheme.focusColor : StyleTheme.primaryTextColor;
+  get _focusColor => _focused ? StyleTheme.focusColor : StyleTheme.primaryTextColor;
 
   IconButton iconClear() {
     return IconButton(

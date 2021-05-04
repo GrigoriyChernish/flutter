@@ -30,8 +30,7 @@ class MyStatefulWidget extends StatefulWidget {
 
 /// This is the private State class that goes with MyStatefulWidget.
 /// AnimationControllers can be created with `vsync: this` because of TickerProviderStateMixin.
-class _MyStatefulWidgetState extends State<MyStatefulWidget>
-    with TickerProviderStateMixin {
+class _MyStatefulWidgetState extends State<MyStatefulWidget> with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -59,11 +58,16 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ScaleTransition(
-          scale: _animation,
-          child: const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: FlutterLogo(size: 250.0),
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: ElevatedButton(
+            onPressed: () {
+              print('fsdf');
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Text('_getBtnTextForm'),
+            ),
           ),
         ),
       ),

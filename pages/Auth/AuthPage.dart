@@ -52,7 +52,6 @@ class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    //  static String title = S.of(context).title;
     return Provider(
       create: (_) => FormModel(),
       child: Listener(
@@ -81,15 +80,15 @@ class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.login),
-                label: S.of(context)!.loginTitle,
+                label: S.of(context).loginTitle,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person_add),
-                label: S.of(context)!.registerTitle,
+                label: S.of(context).registerTitle,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.email),
-                label: S.of(context)!.forgotPasswordTitle,
+                label: S.of(context).forgotPasswordTitle,
               ),
             ],
             currentIndex: _selected,
