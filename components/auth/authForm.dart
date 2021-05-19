@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/model/auth/authModel.dart';
-import 'package:flutter_app/model/user/userModel.dart';
+import '../../model/auth/authModel.dart';
+import '../../model/user/userModel.dart';
 import 'package:provider/provider.dart';
 import '../../service/http/auth/AuthHttp.dart';
 import '../../service/http/fetch/Response.dart';
@@ -55,7 +55,6 @@ class _AuthFormState extends State<AuthForm> {
     if (_getKey == ValueKey('LoginForm')) {
       response = await AuthHttp.logIn(data.login());
       if (response.status == 200) {
-        //  UserModel user = UserModel.fromJson(response.data as Map<String, dynamic>);
         context.read<Authentication>().set(AuthStatus.authenticated);
       }
     }
@@ -64,7 +63,7 @@ class _AuthFormState extends State<AuthForm> {
       response = await AuthHttp.register(data.register());
       if (response.status == 200) {
         UserModel.fromJson(response.data as Map<String, dynamic>);
-        Authentication().set(AuthStatus.authenticated);
+        context.read<Authentication>().set(AuthStatus.authenticated);
       }
     }
 
@@ -75,6 +74,7 @@ class _AuthFormState extends State<AuthForm> {
     if (response.status == 200) {
       Alert.success(response.message).show(context);
     } else {
+      print(response.message);
       Alert.error(response.message).show(context);
     }
   }

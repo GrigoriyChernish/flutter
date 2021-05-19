@@ -30,10 +30,6 @@ class StartApp extends StatefulWidget {
 }
 
 class _StartAppState extends State<StartApp> {
-  //final _navigatorKey = GlobalKey<NavigatorState>();
-
-  // NavigatorState get _navigator => _navigatorKey.currentState!;
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -58,7 +54,6 @@ class _StartAppState extends State<StartApp> {
           return AuthPage();
         },
       ),
-      //home: AuthPage(),
     );
   }
 }

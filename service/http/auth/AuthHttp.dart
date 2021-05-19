@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../../../config/path.dart';
 import '../fetch/fetchHttp.dart';
 import '../fetch/Response.dart';
@@ -21,7 +23,7 @@ class AuthHttp {
     return await Fetch().post(PathApi.forgot, data);
   }
 
-  static Future<Response> logout() async {
+  static logout() async {
     return await Fetch().get(PathApi.logout);
   }
 }

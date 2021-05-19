@@ -9,6 +9,7 @@ import '../../style/MainStyle.dart';
 class FormFiledText extends StatefulWidget {
   FormFiledText({
     Key? key,
+    this.text = '',
     this.id,
     this.labelText,
     this.keyboardType,
@@ -18,6 +19,7 @@ class FormFiledText extends StatefulWidget {
   final bool obscureText;
   final String? errorText;
   final String? labelText;
+  final String? text;
   final TextInputType? keyboardType;
   final FormKey? id;
 
@@ -43,6 +45,10 @@ class _FormFiledTextState extends State<FormFiledText> {
     _btnClearFocus = FocusScopeNode();
     _focus!.addListener(_handleFocusChange);
     _btnClearFocus!.addListener(_handleBtnFocusChange);
+    _changeController.text = widget.text!;
+    if (_changeController.text.isNotEmpty) {
+      _onChanged(_changeController.text);
+    }
     if (widget.obscureText) {
       _obscureText = true;
       _visibility = true;

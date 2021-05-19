@@ -1,9 +1,13 @@
+import 'package:flutter_app/components/alertBar.dart';
+
 /// Flutter code sample for ScaleTransition
 
 // The following code implements the [ScaleTransition] as seen in the video
 // above:
-
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/model/auth/authModel.dart';
+import 'package:flutter_app/service/http/auth/AuthHttp.dart';
 
 /// This is the main application widget.
 class MainPage extends StatelessWidget {
@@ -61,8 +65,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> with TickerProvider
         child: Padding(
           padding: EdgeInsets.all(8.0),
           child: ElevatedButton(
-            onPressed: () {
-              print('fsdf');
+            onPressed: () async {
+              var response = await AuthHttp.logout();
+              if (response.status == 200) {
+                //  UserModel user = UserModel.fromJson(response.data as Map<String, dynamic>);
+                context.read<Authentication>().set(AuthStatus.unauthenticated);
+              }
+              Alert.error(response.message).show(context);
             },
             child: Padding(
               padding: const EdgeInsets.all(8),

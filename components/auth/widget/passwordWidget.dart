@@ -12,6 +12,7 @@ class PasswordWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return FormFiledText(
       id: FormKey.password,
+      text: "123456",
       labelText: S.of(context).password,
       keyboardType: TextInputType.visiblePassword,
       obscureText: true,

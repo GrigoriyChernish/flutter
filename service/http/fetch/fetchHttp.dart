@@ -5,7 +5,6 @@ import 'Response.dart';
 
 class Fetch {
   Map<String, String> headers = {'X-Requested-With': 'XMLHttpRequest'};
-  static String baseUrl = 'localhost:8000';
 
   Fetch({Map<String, String> header = const {}}) {
     if (header.isNotEmpty) {
@@ -18,8 +17,7 @@ class Fetch {
       http.Response response = await http.post(UrlApi(url).uri, headers: this.headers, body: body);
       return Response.fromJson(jsonDecode(response.body));
     } catch (e) {
-      print(e);
-      return Response.error(error: true);
+      return Response.error(error: true, message: e.toString());
     }
   }
 
@@ -28,8 +26,7 @@ class Fetch {
       http.Response response = await http.get(UrlApi(url).uri, headers: this.headers);
       return Response.fromJson(jsonDecode(response.body));
     } catch (e) {
-      print(e);
-      return Response.error(error: true);
+      return Response.error(error: true, message: e.toString());
     }
   }
 }

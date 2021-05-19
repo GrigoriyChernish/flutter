@@ -5,7 +5,7 @@ class Response {
   final bool? error;
 
   const Response(this.data, this.status, this.message, this.error);
-  const Response.error({this.data, this.status, this.message, this.error});
+  Response.error({this.data, this.status, this.message, this.error});
   Response.fromJson(Map<String, dynamic> json)
       : data = json['data'],
         status = json['status'],

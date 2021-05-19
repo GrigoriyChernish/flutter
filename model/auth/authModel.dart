@@ -7,7 +7,11 @@ class Authentication with ChangeNotifier {
 
   Authentication({
     this.status = AuthStatus.unauthenticated,
-  });
+  }) {
+    if (this.status == AuthStatus.unauthenticated) {
+      print('init');
+    }
+  }
 
   set(AuthStatus status) {
     this.copyWith(status: status);
