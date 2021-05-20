@@ -5,7 +5,7 @@ import '../fetch/fetchHttp.dart';
 import '../fetch/Response.dart';
 
 class AuthHttp {
-  static late Map<String, String> header;
+  static late Map<String, String> header = {};
 
   AuthHttp.headers(Map<String, String> headers) {
     AuthHttp.header = headers;

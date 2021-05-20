@@ -9,13 +9,6 @@ class ForgotForm extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Icon(
-              Icons.email,
-              size: 120.0,
-            ),
-          ),
           EmailWidget(),
         ],
       ),

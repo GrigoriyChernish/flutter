@@ -34,30 +34,7 @@ class MyStatefulWidget extends StatefulWidget {
 
 /// This is the private State class that goes with MyStatefulWidget.
 /// AnimationControllers can be created with `vsync: this` because of TickerProviderStateMixin.
-class _MyStatefulWidgetState extends State<MyStatefulWidget> with TickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 500),
-      vsync: this,
-    )..repeat(reverse: true);
-
-    _animation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.fastOutSlowIn,
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
-
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,10 +49,14 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> with TickerProvider
                 context.read<Authentication>().set(AuthStatus.unauthenticated);
               }
               Alert.error(response.message).show(context);
+              context.read<Authentication>().set(AuthStatus.unauthenticated);
             },
             child: Padding(
               padding: const EdgeInsets.all(8),
-              child: Text('_getBtnTextForm'),
+              child: Text(
+                'Almost before we',
+                style: TextStyle(fontWeight: FontWeight.normal),
+              ),
             ),
           ),
         ),

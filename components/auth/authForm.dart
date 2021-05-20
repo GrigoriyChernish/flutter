@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../model/auth/authModel.dart';
 import '../../model/user/userModel.dart';
-import 'package:provider/provider.dart';
 import '../../service/http/auth/AuthHttp.dart';
 import '../../service/http/fetch/Response.dart';
 import '../../generated/l10n.dart';
@@ -22,14 +22,18 @@ class AuthForm extends StatefulWidget {
 
 class _AuthFormState extends State<AuthForm> {
   final _formKey = GlobalKey<FormState>();
-  late List<String> _widgetFormsText;
+  static late List<String> _widgetFormsText;
+  static late List<Widget> _widgetForms;
   AutovalidateMode _autovalidate = AutovalidateMode.disabled;
 
-  static List<Widget> _widgetForms = <Widget>[
-    LoginForm(key: ValueKey('LoginForm')),
-    RegistrationForm(key: ValueKey('RegistrationForm')),
-    ForgotForm(key: ValueKey('ForgotForm')),
-  ];
+  get _getWidgetForms {
+    _widgetForms = <Widget>[
+      LoginForm(key: ValueKey('LoginForm')),
+      RegistrationForm(key: ValueKey('RegistrationForm')),
+      ForgotForm(key: ValueKey('ForgotForm')),
+    ];
+    return _widgetForms.elementAt(widget.selected!);
+  }
 
   get _getBtnTextForm {
     _widgetFormsText = <String>[
@@ -40,39 +44,41 @@ class _AuthFormState extends State<AuthForm> {
     return _widgetFormsText.elementAt(widget.selected!);
   }
 
-  get _getKey => _widgetForms.elementAt(widget.selected!).key;
+  get _getKeyWidget => _widgetForms.elementAt(widget.selected!).key;
 
   @override
   void initState() {
     super.initState();
-    AuthHttp.headers({'X-Requested': 'fdsfasf'});
+    // AuthHttp.headers({'X-Requested': 'fdsfasf'});
   }
 
   _getHttp() async {
     late Response response;
     FormModel data = context.read<FormModel>();
 
-    if (_getKey == ValueKey('LoginForm')) {
+    if (_getKeyWidget == ValueKey('LoginForm')) {
       response = await AuthHttp.logIn(data.login());
+
       if (response.status == 200) {
-        context.read<Authentication>().set(AuthStatus.authenticated);
+        // context.read<Authentication>().set(AuthStatus.authenticated);
       }
     }
 
-    if (_getKey == ValueKey('RegistrationForm')) {
+    if (_getKeyWidget == ValueKey('RegistrationForm')) {
       response = await AuthHttp.register(data.register());
       if (response.status == 200) {
         UserModel.fromJson(response.data as Map<String, dynamic>);
-        context.read<Authentication>().set(AuthStatus.authenticated);
+        // context.read<Authentication>().set(AuthStatus.authenticated);
       }
     }
 
-    if (_getKey == ValueKey('ForgotForm')) {
+    if (_getKeyWidget == ValueKey('ForgotForm')) {
       response = await AuthHttp.forgot(data.confirmPassword());
     }
 
     if (response.status == 200) {
       Alert.success(response.message).show(context);
+      context.read<Authentication>().set(AuthStatus.authenticated);
     } else {
       print(response.message);
       Alert.error(response.message).show(context);
@@ -99,7 +105,7 @@ class _AuthFormState extends State<AuthForm> {
             child: Form(
               key: _formKey,
               autovalidateMode: _autovalidate,
-              child: _widgetForms.elementAt(widget.selected!),
+              child: _getWidgetForms,
             ),
           )),
         ),

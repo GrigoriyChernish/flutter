@@ -12,13 +12,6 @@ class RegistrationForm extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Icon(
-              Icons.person_add,
-              size: 120.0,
-            ),
-          ),
           NameWidget(),
           EmailWidget(),
           PasswordWidget(),

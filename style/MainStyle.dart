@@ -9,27 +9,34 @@ class StyleTheme {
   static const Color focusColor = Colors.white;
   static const Color errorColor = Color(0xFFAD1457);
   static const Color errorTextColor = Color(0xFFAD1457);
+
   static ThemeData get light {
-    return ThemeData.light().copyWith(
-        textSelectionTheme: TextSelectionThemeData(
-            cursorColor: focusColor,
-            selectionColor: focusColor.withOpacity(0.4),
-            selectionHandleColor: focusColor),
-        scaffoldBackgroundColor: bgColor,
-        textTheme: ThemeData.light().textTheme.apply(
-              fontFamily: 'Montserrat',
-            ),
-        primaryColor: StyleTheme.primaryColor,
-        elevatedButtonTheme: elevatedButtonThemeData(),
-        cardTheme: CardTheme(
-          color: bgColor,
-        ),
-        iconTheme: IconThemeData(color: primaryColor),
-        inputDecorationTheme: inputDecorationTheme(),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: bgColor,
-          selectedItemColor: primaryColor,
-        ));
+    return ThemeData(
+      brightness: Brightness.light,
+      textSelectionTheme: textSelectionTheme(),
+      scaffoldBackgroundColor: bgColor,
+      fontFamily: 'Lobster',
+      primaryColor: StyleTheme.primaryColor,
+      elevatedButtonTheme: elevatedButtonThemeData(),
+      cardTheme: CardTheme(color: bgColor),
+      iconTheme: IconThemeData(color: primaryColor),
+      inputDecorationTheme: inputDecorationTheme(),
+      bottomNavigationBarTheme: bottomNavigationBarThemeData(),
+    );
+  }
+
+  static BottomNavigationBarThemeData bottomNavigationBarThemeData() {
+    return BottomNavigationBarThemeData(
+      backgroundColor: bgColor,
+      selectedItemColor: primaryColor,
+    );
+  }
+
+  static TextSelectionThemeData textSelectionTheme() {
+    return TextSelectionThemeData(
+        cursorColor: focusColor,
+        selectionColor: focusColor.withOpacity(0.4),
+        selectionHandleColor: focusColor);
   }
 
   static InputDecorationTheme inputDecorationTheme() {
@@ -37,6 +44,11 @@ class StyleTheme {
         contentPadding: EdgeInsets.all(10.0),
         hintStyle: TextStyle(color: primaryTextColor),
         labelStyle: TextStyle(color: primaryTextColor),
+        errorStyle: TextStyle(
+          color: StyleTheme.errorTextColor,
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+        ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: primaryTextColor,

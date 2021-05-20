@@ -10,13 +10,6 @@ class LoginForm extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Icon(
-              Icons.login,
-              size: 120.0,
-            ),
-          ),
           EmailWidget(),
           PasswordWidget(),
         ],

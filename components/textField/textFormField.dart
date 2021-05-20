@@ -127,15 +127,8 @@ class _FormFiledTextState extends State<FormFiledText> {
 
   InputDecoration buildInputDecoration() => InputDecoration(
         labelText: widget.labelText,
-        labelStyle: TextStyle(
-          color: _focusColor,
-        ),
+        labelStyle: TextStyle(color: _focusColor),
         errorText: _isError ? widget.errorText : null,
-        errorStyle: TextStyle(
-          color: StyleTheme.errorTextColor,
-          fontSize: 15,
-          fontWeight: FontWeight.bold,
-        ),
         suffixIcon: _obscureText ? iconVisibility : controllerIconClear,
       );
 
