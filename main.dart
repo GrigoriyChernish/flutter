@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'model/notifications.dart';
 import 'pages/MainPage.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -20,7 +21,18 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(create: (_) => Authentication(), child: StartApp());
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => Authentication()),
+        ChangeNotifierProvider(create: (_) => Notify()),
+      ],
+      child: Consumer<Notify>(
+        builder: (_, notify, __) {
+          print('notify logged in: ${notify.status}');
+          return StartApp();
+        },
+      ),
+    );
   }
 }
 
@@ -47,7 +59,7 @@ class _StartAppState extends State<StartApp> {
       theme: StyleTheme.light,
       home: Consumer<Authentication>(
         builder: (_, auth, __) {
-          print('main.dart logged in: ${auth.status}');
+          // print('main.dart logged in: ${auth.status}');
           if (auth.status == AuthStatus.authenticated) {
             return MainPage();
           }

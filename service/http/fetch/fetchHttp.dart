@@ -15,7 +15,7 @@ class Fetch {
   Future<Response> post(String url, Map<String, dynamic> body) async {
     try {
       http.Response response = await http.post(UrlApi(url).uri, headers: this.headers, body: body);
-      return Response.fromJson(jsonDecode(response.body));
+      return Response(jsonDecode(response.body));
     } catch (e) {
       return Response.error(error: true, message: e.toString());
     }
@@ -24,7 +24,7 @@ class Fetch {
   Future<Response> get(String url) async {
     try {
       http.Response response = await http.get(UrlApi(url).uri, headers: this.headers);
-      return Response.fromJson(jsonDecode(response.body));
+      return Response(jsonDecode(response.body));
     } catch (e) {
       return Response.error(error: true, message: e.toString());
     }

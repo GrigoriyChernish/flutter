@@ -58,7 +58,6 @@ class _AuthFormState extends State<AuthForm> {
 
     if (_getKeyWidget == ValueKey('LoginForm')) {
       response = await AuthHttp.logIn(data.login());
-
       if (response.status == 200) {
         // context.read<Authentication>().set(AuthStatus.authenticated);
       }

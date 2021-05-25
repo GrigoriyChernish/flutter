@@ -1,14 +1,18 @@
 class Response {
   final Map? data;
   final int? status;
-  final String? message;
+  String message = '';
   final bool? error;
 
-  const Response(this.data, this.status, this.message, this.error);
-  Response.error({this.data, this.status, this.message, this.error});
-  Response.fromJson(Map<String, dynamic> json)
+  Response.init(this.data, this.status, this.message, this.error);
+  Response.error({this.data, this.status, required this.message, this.error});
+/*   Response.fromJson(Map<String, dynamic> json)
       : data = json['data'],
         status = json['status'],
         message = json['statusText'],
-        error = json['error'];
+        error = json['error']; */
+
+  factory Response(Map<String, dynamic> json) {
+    return Response.init(json['data'], json['status'], json['statusText'], json['error']);
+  }
 }
