@@ -15,6 +15,7 @@ class Authentication with ChangeNotifier {
 
   set(AuthStatus status) {
     this.copyWith(status: status);
+
     notifyListeners();
   }
 
